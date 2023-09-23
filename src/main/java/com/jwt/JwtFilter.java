@@ -106,7 +106,7 @@ public class JwtFilter extends OncePerRequestFilter {
      * @return True if the user is a manager, false otherwise.
      */
 	public boolean isManager() {
-		return "user".equalsIgnoreCase((String) claims.get("role"));
+		return "manager".equalsIgnoreCase((String) claims.get("role"));
 	}
 	
 	

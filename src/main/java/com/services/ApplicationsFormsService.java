@@ -12,6 +12,6 @@ public interface ApplicationsFormsService {
 	
 	public ResponseEntity<String> applyForAccount(Map<String, String> map,String category);
 	
-	public ResponseEntity<List<ApplicationsForms>> getAllForms();
+	public ResponseEntity<List<ApplicationsForms>> getAllForms(String category);
 
 }

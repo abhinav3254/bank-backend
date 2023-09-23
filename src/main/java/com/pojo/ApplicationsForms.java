@@ -43,6 +43,8 @@ public class ApplicationsForms {
 	
 	private String sourceOfIncome;
 	
+	private boolean status;
+	
 	
 	@ManyToOne
 	private User user;

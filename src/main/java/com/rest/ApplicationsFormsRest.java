@@ -20,8 +20,10 @@ public interface ApplicationsFormsRest {
 	@PostMapping("/apply/current-account")
 	public ResponseEntity<String> applyForCurrentAccount(@RequestBody(required = true)Map<String, String>map);
 
+	@GetMapping("/applications/saving-accounts")
+	public ResponseEntity<List<ApplicationsForms>> getAllFormsOfSavingAccounts();
 	
-	@GetMapping("/applications")
-	public ResponseEntity<List<ApplicationsForms>> getAllForms();
+	@GetMapping("/applications/current-accounts")
+	public ResponseEntity<List<ApplicationsForms>> getAllFormsOfCurrentAccounts();
 
 }

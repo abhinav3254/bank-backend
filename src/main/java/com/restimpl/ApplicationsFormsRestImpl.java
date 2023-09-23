@@ -38,10 +38,21 @@ public class ApplicationsFormsRestImpl implements ApplicationsFormsRest {
 		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+
 	@Override
-	public ResponseEntity<List<ApplicationsForms>> getAllForms() {
+	public ResponseEntity<List<ApplicationsForms>> getAllFormsOfSavingAccounts() {
 		try {
-			return applicationsFormsService.getAllForms();
+			return applicationsFormsService.getAllForms("savings-account");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<List<ApplicationsForms>>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@Override
+	public ResponseEntity<List<ApplicationsForms>> getAllFormsOfCurrentAccounts() {
+		try {
+			return applicationsFormsService.getAllForms("current-account");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
