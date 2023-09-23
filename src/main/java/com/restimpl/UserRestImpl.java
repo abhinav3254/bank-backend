@@ -13,9 +13,9 @@ import com.pojo.User;
 import com.rest.UserRest;
 import com.services.UserService;
 
-
 /**
- * Controller class that implements the UserRest interface and handles user-related REST API endpoints.
+ * Controller class that implements the UserRest interface and handles
+ * user-related REST API endpoints.
  */
 @RestController
 public class UserRestImpl implements UserRest {
@@ -24,18 +24,22 @@ public class UserRestImpl implements UserRest {
 	private UserService userService;
 
 	/**
-     * Endpoint for user registration (sign-up).
-     *
-     * @param map A map containing user registration information, such as "username", "name", "email", etc.
-     * @return A ResponseEntity containing a String response, typically indicating the result of the registration attempt.
-     */
+	 * Endpoint for user registration (sign-up).
+	 *
+	 * @param map A map containing user registration information, such as
+	 *            "username", "name", "email", etc.
+	 * @return A ResponseEntity containing a String response, typically indicating
+	 *         the result of the registration attempt.
+	 */
 	@Override
 	public ResponseEntity<String> addUser(Map<String, String> map) {
 		try {
-			// Delegate the user registration process to the UserService and return the result.
+			// Delegate the user registration process to the UserService and return the
+			// result.
 			return userService.addUser(map);
 		} catch (Exception e) {
-			// Handle any exceptions that may occur during user registration and log the error.
+			// Handle any exceptions that may occur during user registration and log the
+			// error.
 			e.printStackTrace();
 		}
 		// Return an INTERNAL_SERVER_ERROR response if an exception occurs.
@@ -43,11 +47,13 @@ public class UserRestImpl implements UserRest {
 	}
 
 	/**
-     * Endpoint for user login.
-     *
-     * @param map A map containing user login credentials, such as "username" and "password".
-     * @return A ResponseEntity containing a String response, typically indicating the result of the login attempt.
-     */
+	 * Endpoint for user login.
+	 *
+	 * @param map A map containing user login credentials, such as "username" and
+	 *            "password".
+	 * @return A ResponseEntity containing a String response, typically indicating
+	 *         the result of the login attempt.
+	 */
 	@Override
 	public ResponseEntity<String> logIn(Map<String, String> map) {
 		try {
@@ -64,8 +70,9 @@ public class UserRestImpl implements UserRest {
 	/**
 	 * Retrieve the user's profile information.
 	 *
-	 * @return A ResponseEntity containing the user's profile information as a User object, or
-	 *         an INTERNAL_SERVER_ERROR response if an exception occurs during the retrieval process.
+	 * @return A ResponseEntity containing the user's profile information as a User
+	 *         object, or an INTERNAL_SERVER_ERROR response if an exception occurs
+	 *         during the retrieval process.
 	 */
 	@Override
 	public ResponseEntity<User> getProfile() {
@@ -91,6 +98,36 @@ public class UserRestImpl implements UserRest {
 	public ResponseEntity<List<User>> getAllUsers() {
 		try {
 			return userService.getAllUsers();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<List<User>>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@Override
+	public ResponseEntity<String> approveManager(String userId) {
+		try {
+			return userService.approveManager(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@Override
+	public ResponseEntity<String> declineManager(String userId) {
+		try {
+			return userService.declineManager(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@Override
+	public ResponseEntity<List<User>> getAllUnapprovedManager() {
+		try {
+			return userService.getAllUnapprovedManager();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

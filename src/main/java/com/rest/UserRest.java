@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pojo.User;
 
@@ -48,12 +49,20 @@ public interface UserRest {
 	
 	/* -------------- ADMIN SECTION START FROM HERE ----------------- */
 	
+	@GetMapping("/admin/not-approved-manager")
+	public ResponseEntity<List<User>> getAllUnapprovedManager();
 	
 	@GetMapping("/admin/all-manager")
 	public ResponseEntity<List<User>> getAllManager();
 	
 	@GetMapping("/admin/all-users")
 	public ResponseEntity<List<User>> getAllUsers();
+	
+	@GetMapping("/admin/approveManager")
+	public ResponseEntity<String> approveManager(@RequestParam(required = true) String userId);
+	
+	@GetMapping("/admin/declineManager")
+	public ResponseEntity<String> declineManager(@RequestParam(required = true) String userId);
 	
 	
 }

@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
 
 			// Role to be changed from USER to CUSTOMER
 			user.setRole("USER");
-			user.setStatus("TRUE");
+			user.setStatus("FALSE");
 
 			// Set the user's last login and registration date to the current date and time
 			user.setLastLogin(new Date());
@@ -128,8 +128,12 @@ public class UserServiceImpl implements UserService {
 			} else {
 				// Generate a JWT token for the user's successful login and return an OK
 				// response.
-				return new ResponseEntity<String>(jwtUtils.generateToken(user.getUsername(), user.getRole()),
-						HttpStatus.OK);
+				if (user.getStatus().equalsIgnoreCase("false")) {
+					return new ResponseEntity<String>("WAIT FOR APPROVAL",HttpStatus.LOCKED);
+				} else {
+					return new ResponseEntity<String>(jwtUtils.generateToken(user.getUsername(), user.getRole()),
+							HttpStatus.OK);
+				}
 			}
 		} catch (Exception e) {
 			// Handle any exceptions that may occur during the login process and log the
@@ -227,11 +231,66 @@ public class UserServiceImpl implements UserService {
 	public ResponseEntity<List<User>> getAllUsers() {
 		try {
 			if (jwtFilter.isAdmin() || jwtFilter.isManager()) {
-				
+
 				List<User> listUsers = userDao.getAllUser();
+
+				return new ResponseEntity<List<User>>(listUsers, HttpStatus.OK);
+
+			} else {
+				return new ResponseEntity<List<User>>(HttpStatus.UNAUTHORIZED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<List<User>>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@Override
+	public ResponseEntity<String> approveManager(String userId1) {
+		try {
+			
+			if (jwtFilter.isAdmin()) {
+				Integer userId = Integer.parseInt(userId1);
 				
-				return new ResponseEntity<List<User>>(listUsers,HttpStatus.OK);
+				userDao.setStatusTrueOfManager(userId);
 				
+				return new ResponseEntity<String>("UPDATED",HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>("UNAUTHORIZED",HttpStatus.UNAUTHORIZED);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@Override
+	public ResponseEntity<String> declineManager(String userId1) {
+		try {
+			
+			if (jwtFilter.isAdmin()) {
+				Integer userId = Integer.parseInt(userId1);
+				
+				userDao.setStatusFalseOfManager(userId);
+				
+				return new ResponseEntity<String>("UPDATED",HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>("UNAUTHORIZED",HttpStatus.UNAUTHORIZED);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@Override
+	public ResponseEntity<List<User>> getAllUnapprovedManager() {
+		try {
+			if (jwtFilter.isAdmin()) {
+				List<User> listOfUnapprovedManager = userDao.getAllUnapprovedManager();
+				return new ResponseEntity<List<User>>(listOfUnapprovedManager,HttpStatus.OK);
 			} else {
 				return new ResponseEntity<List<User>>(HttpStatus.UNAUTHORIZED);
 			}

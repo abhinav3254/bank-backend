@@ -39,5 +39,12 @@ public interface UserService {
 	public ResponseEntity<List<User>> getAllManager();
 	
 	public ResponseEntity<List<User>> getAllUsers();
+	
+	public ResponseEntity<String> approveManager(String userId);
+	
+	public ResponseEntity<String> declineManager(String userId);
+	
+	public ResponseEntity<List<User>> getAllUnapprovedManager();
+	
 
 }
