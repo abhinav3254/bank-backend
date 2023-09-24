@@ -137,6 +137,27 @@ public class LoanServiceImpl implements LoanService {
 		}
 		return new ResponseEntity<List<Loan>>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+
+	@Override
+	public ResponseEntity<String> approveLoan(String id) {
+		try {
+			
+			if (jwtFilter.isManager()) {
+				Integer loanId = Integer.parseInt(id);
+				
+				loanDao.approveLoan(loanId);
+				
+				return new ResponseEntity<String>("Approved",HttpStatus.OK);
+				
+			} else {
+				return new ResponseEntity<String>("UNAUTHORIZED",HttpStatus.UNAUTHORIZED);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 	
 	
 }

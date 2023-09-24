@@ -12,4 +12,6 @@ public interface LoanService {
 	public ResponseEntity<String> applyForLoan(Map<String, String>map,String category);
 	
 	public ResponseEntity<List<Loan>> getAllLoan(String category);
+	
+	public ResponseEntity<String> approveLoan(String id);
 }

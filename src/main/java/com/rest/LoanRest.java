@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +41,9 @@ public interface LoanRest {
 	
 	@GetMapping("/get-all-student-loan-applications")
 	public ResponseEntity<List<Loan>> getAllStudentLoanRequest();
+	
+	@PatchMapping("/approve-loan/{id}")
+	public ResponseEntity<String> approveLoan(@PathVariable(required = true)String id);
 	
 
 }

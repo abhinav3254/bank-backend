@@ -98,6 +98,16 @@ public class LoanRestImpl implements LoanRest {
 		return new ResponseEntity<List<Loan>>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	@Override
+	public ResponseEntity<String> approveLoan(String id) {
+		try {
+			return loanService.approveLoan(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
 	
 
 }
