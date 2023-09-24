@@ -108,6 +108,30 @@ public class LoanServiceImpl implements LoanService {
 	public ResponseEntity<List<Loan>> getAllLoan(String category) {
 		try {
 			
+			if (jwtFilter.isManager()) {
+				if (category.equalsIgnoreCase("home")) {
+					// home loan
+					List<Loan> listLoan = loanDao.getLoanByCategory(category);
+					return new ResponseEntity<List<Loan>>(listLoan,HttpStatus.OK);
+				} else if (category.equalsIgnoreCase("vehicle")) {
+					// vehicle loan
+					List<Loan> listLoan = loanDao.getLoanByCategory(category);
+					return new ResponseEntity<List<Loan>>(listLoan,HttpStatus.OK);
+				} else if (category.equalsIgnoreCase("personal")) {
+					// personal loan
+					List<Loan> listLoan = loanDao.getLoanByCategory(category);
+					return new ResponseEntity<List<Loan>>(listLoan,HttpStatus.OK);
+				} else if (category.equalsIgnoreCase("student")) {
+					// student loan
+					List<Loan> listLoan = loanDao.getLoanByCategory(category);
+					return new ResponseEntity<List<Loan>>(listLoan,HttpStatus.OK);
+				} else {
+					return new ResponseEntity<List<Loan>>(HttpStatus.BAD_REQUEST);
+				}
+			} else {
+				return new ResponseEntity<List<Loan>>(HttpStatus.UNAUTHORIZED);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

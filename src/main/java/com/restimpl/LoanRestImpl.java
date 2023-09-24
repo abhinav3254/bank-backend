@@ -51,7 +51,7 @@ public class LoanRestImpl implements LoanRest {
 	@Override
 	public ResponseEntity<String> applyForStudentLoan(Map<String, String> map) {
 		try {
-			return loanService.applyForLoan(map,"vehicle");
+			return loanService.applyForLoan(map,"student");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
