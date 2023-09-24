@@ -15,6 +15,9 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.dao.UserDao;
+import com.pojo.User;
+
 import io.jsonwebtoken.Claims;
 
 /**
@@ -27,6 +30,9 @@ public class JwtFilter extends OncePerRequestFilter {
 	
 	@Autowired
 	private JwtUtils jwtUtils;
+	
+	@Autowired
+	private UserDao userDao;
 	
 	@Autowired
 	private MyUserDetailsService myUserDetailsService;
@@ -117,6 +123,11 @@ public class JwtFilter extends OncePerRequestFilter {
      */
 	public String getCurrentUser() {
 		return userName;
+	}
+	
+	public User getUserDetails() {
+		User user = userDao.getUserByUsername(getCurrentUser());
+		return user;
 	}
 
 }
