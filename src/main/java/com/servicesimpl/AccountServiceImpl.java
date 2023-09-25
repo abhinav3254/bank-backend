@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.dao.AccountDao;
 import com.dao.UserDao;
+import com.jwt.JwtFilter;
 import com.jwt.JwtUtils;
 import com.pojo.Account;
 import com.pojo.User;
@@ -25,6 +26,9 @@ public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private JwtFilter jwtFilter;
 
 	@Autowired
 	private AccountDao accountDao;
@@ -38,10 +42,8 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public ResponseEntity<String> openAccount() {
 		try {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			String userToken = authentication.getName();
-			String username = jwtUtils.extractUsername(userToken);
-			User userOne = userDao.getUserByUsername(username);
+			
+			User userOne = jwtFilter.getUserDetails();
 			
 			Account bankItem2 = accountDao.getUserBankItem(userOne.getId());
 			
@@ -50,7 +52,7 @@ public class AccountServiceImpl implements AccountService {
 				// No account found so we can create a new account
 				Account bankItem = new Account();
 				
-				User user = userDao.getUserByUsername(username);
+				User user = userDao.getUserByUsername(userOne.getUsername());
 				
 				bankItem.setAmount(0.00);
 				bankItem.setUser(user);
