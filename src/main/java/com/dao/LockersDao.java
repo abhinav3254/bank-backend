@@ -15,5 +15,8 @@ public interface LockersDao extends JpaRepository<Lockers, Integer> {
 	
 	@Query(nativeQuery = true,value = "select * from lockers where available = true")
 	public List<Lockers> getAllAvailableLockers();
+	
+	@Query(nativeQuery = true, value = "select * from lockers where user_id =:uid" )
+	public List<Lockers> getAllLockerOfUser(Integer uid);
 
 }

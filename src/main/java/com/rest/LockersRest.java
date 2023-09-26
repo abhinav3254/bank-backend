@@ -31,4 +31,7 @@ public interface LockersRest {
 	@PatchMapping("/approve-pending-locker/{id}")
 	public ResponseEntity<String> approvePendingLocker(@PathVariable(required = true) String id);
 	
+	@GetMapping("/get-all-locker-of-user")
+	public ResponseEntity<List<Lockers>> getAllLockerOfUser();
+	
 }

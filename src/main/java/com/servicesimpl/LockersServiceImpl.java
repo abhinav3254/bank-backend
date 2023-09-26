@@ -119,7 +119,7 @@ public class LockersServiceImpl implements LockersService {
 			
 			if (jwtFilter.isManager()) {
 				
-				System.out.println("called to approve locker");
+				
 				Optional<Lockers> lockerOptional = lockersDao.findById(Integer.parseInt(id));
 				Lockers lockers = lockerOptional.get();
 				
@@ -138,6 +138,17 @@ public class LockersServiceImpl implements LockersService {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@Override
+	public ResponseEntity<List<Lockers>> getAllLockerOfUser() {
+		try {
+			List<Lockers> listLockers = lockersDao.getAllLockerOfUser(jwtFilter.getUserDetails().getId());
+			return new ResponseEntity<List<Lockers>>(listLockers,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<List<Lockers>>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 }

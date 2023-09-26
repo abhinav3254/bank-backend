@@ -69,4 +69,14 @@ public class LockersRestImpl implements LockersRest {
 		return new ResponseEntity<List<Lockers>>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	@Override
+	public ResponseEntity<List<Lockers>> getAllLockerOfUser() {
+		try {
+			return lockersService.getAllLockerOfUser();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<List<Lockers>>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
 }

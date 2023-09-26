@@ -18,5 +18,7 @@ public interface LockersService {
 	public ResponseEntity<String> approvePendingLocker(String id);
 	
 	public ResponseEntity<List<Lockers>> getAllLockers();
+	
+	public ResponseEntity<List<Lockers>> getAllLockerOfUser();
 
 }
