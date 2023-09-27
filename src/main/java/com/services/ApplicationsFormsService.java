@@ -13,5 +13,10 @@ public interface ApplicationsFormsService {
 	public ResponseEntity<String> applyForAccount(Map<String, String> map,String category);
 	
 	public ResponseEntity<List<ApplicationsForms>> getAllForms(String category);
+	
+	public ResponseEntity<String> approveSavingsAccount(String id);
+	
+	public ResponseEntity<String> approveCurrentAccount(String id);
+	
 
 }

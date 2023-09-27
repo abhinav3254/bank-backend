@@ -1,28 +1,35 @@
 package com.pojo;
 
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Data;
 
-@Entity
 @Data
-public class Account {
+@Entity
+public class CurrentAccount {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private Double amount;
-	
-//	@Temporal(TemporalType.TIMESTAMP)
-//	private Date withdrawDate;
+	private Double draft;
 	
 	@OneToOne
 	private User user;
+	
+	@OneToOne
+	private ApplicationsForms applicationsForms;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date accountCreattionDate;
+	
 	
 }

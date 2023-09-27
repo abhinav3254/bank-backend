@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,4 +27,14 @@ public interface ApplicationsFormsRest {
 	@GetMapping("/applications/current-accounts")
 	public ResponseEntity<List<ApplicationsForms>> getAllFormsOfCurrentAccounts();
 
+	// if application approves then we need to change account table also
+	
+	@GetMapping("/approve-savings-accounts/{id}")
+	public ResponseEntity<String> approveSavingsAccount(@PathVariable String id);
+	
+	
+	@GetMapping("/approve-current-accounts/{id}")
+	public ResponseEntity<String> approveCurrentAccount(@PathVariable String id);
+	
+	
 }
