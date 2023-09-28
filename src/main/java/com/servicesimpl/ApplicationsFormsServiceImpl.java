@@ -1,5 +1,7 @@
 package com.servicesimpl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -167,6 +169,7 @@ public class ApplicationsFormsServiceImpl implements ApplicationsFormsService {
 								savingsAccount.setAmount(0d);
 								savingsAccount.setApplicationsForms(applicationsForms);
 								savingsAccount.setUser(applicationsForms.getUser());
+								savingsAccount.setAccountNumber(generateAccountNumber());
 
 								savingsAccountDao.save(savingsAccount);
 								applicationsForms.setUser(null);
@@ -228,6 +231,7 @@ public class ApplicationsFormsServiceImpl implements ApplicationsFormsService {
 								currentAccount.setApplicationsForms(applicationsForms);
 								currentAccount.setDraft(0d);
 								currentAccount.setUser(applicationsForms.getUser());
+								currentAccount.setAccountNumber(generateAccountNumber());
 								
 								currentAccountDao.save(currentAccount);
 								applicationsForms.setUser(null);
@@ -260,6 +264,21 @@ public class ApplicationsFormsServiceImpl implements ApplicationsFormsService {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	private String generateAccountNumber() {
+
+        // Get the current date and time
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        // Format the date and time as a string
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        String formattedDateTime = currentDateTime.format(formatter);
+
+        // Create the account number by combining date, time, and unique identifier
+        String accountNumber = formattedDateTime;
+        
+        return accountNumber;
 	}
 
 }

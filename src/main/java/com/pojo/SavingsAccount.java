@@ -30,4 +30,6 @@ public class SavingsAccount {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date accountCreatedDate;
 	
+	private String accountNumber;
+	
 }

@@ -31,5 +31,7 @@ public class CurrentAccount {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date accountCreattionDate;
 	
+	private String accountNumber;
+	
 	
 }

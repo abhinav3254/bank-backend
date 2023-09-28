@@ -37,4 +37,5 @@ public interface ApplicationsFormsRest {
 	public ResponseEntity<String> approveCurrentAccount(@PathVariable String id);
 	
 	
+	
 }
